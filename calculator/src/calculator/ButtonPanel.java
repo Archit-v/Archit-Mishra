@@ -5,8 +5,11 @@ import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.LinkedList;
 import java.util.PriorityQueue;
 import java.util.Queue;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
@@ -58,7 +61,7 @@ public class ButtonPanel extends JPanel implements ActionListener{
 		eight=new JButton("8");
 		nine=new JButton("0");
 		ch=new String[30];
-		queue=new PriorityQueue<String>(20);
+		queue=new LinkedList<String>();
 		
 		add.addActionListener(this);
 		subtract.addActionListener(this);	
@@ -101,56 +104,71 @@ public class ButtonPanel extends JPanel implements ActionListener{
 	public void actionPerformed(ActionEvent e)
 	{
 		
+		int flagEquals=0;
 		
 		if(e.getSource().equals(add))
 		{
 			queue.offer("+");
-			ShowPanel.l1.setText("+");
+		
 			
 		}
 		
 		else if(e.getSource().equals(subtract))
 		{
 			queue.offer("-");
-			System.out.println("Key Pressed");		ShowPanel.l1.setText("-");
+		    
 		}
 		
 		else if(e.getSource().equals(multiply))
 		{
 			queue.offer("*");
-			ShowPanel.l1.setText("*");
+			
 		}
 		
 		else if(e.getSource().equals(divide))
 		{
 			queue.offer("/");
+		
 		}
 		
 		else if(e.getSource().equals(one))
 		{
 			queue.offer("1");
+			
 		}
 		
 		else if(e.getSource().equals(two))
 		{
 			queue.offer("2");
+			
 		}
 		
 		else if(e.getSource().equals(three))
 		{
 			queue.offer("3");
+			
 		}
 		
 		else if(e.getSource().equals(four))
 		{
 			queue.offer("4");
+			
 		}
 		
 		else if(e.getSource().equals(equals))
 		{
 			
 			Integer res=0;
-			while(!queue.isEmpty())
+			while(1)
+			{
+			    if(Pattern.matches("[+-*/^]", queue.element()))
+			    	break;
+			    else {
+					res=res+queue.poll();
+				}
+			}
+			String op=queue.poll();
+			while(1)
 			{
 				String number=queue.poll();
 				if(number.equals("+"))
@@ -169,6 +187,14 @@ public class ButtonPanel extends JPanel implements ActionListener{
 			ShowPanel.l1.setText(res.toString());
 			
 		}
-		
+		if(flagEquals==0)
+		{	
+		     String totalCh="";
+		     for(String s:queue)
+		     {
+			      totalCh=totalCh+s;
+		     }
+		     ShowPanel.l1.setText(totalCh);
+		}
 	}
 }

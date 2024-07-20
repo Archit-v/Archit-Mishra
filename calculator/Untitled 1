@@ -1,0 +1,4 @@
+In Java,if you want to dynamically access a Class variable:You need to declare that as "public static".
+"static" because you don't want to instantiate a class and waste memory(According to my opinion).
+
+For-each loop to iterate through queue works just like you would with an "Iterator".

@@ -21,10 +21,11 @@ public class ShowPanel extends JPanel
 		this.setLayout(new FlowLayout(FlowLayout.TRAILING));
 		this.setBorder(BorderFactory.createEtchedBorder(EtchedBorder.LOWERED));
 		
+		l1=new JLabel("0");
+		l1.setForeground(new Color(0,255,0));
+		l1.setMaximumSize(new Dimension(300,150));
 		
-		
-		
-		
+		this.add(l1);
 	}
 
 }
