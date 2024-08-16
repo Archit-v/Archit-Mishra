@@ -158,31 +158,42 @@ public class ButtonPanel extends JPanel implements ActionListener{
 		else if(e.getSource().equals(equals))
 		{
 			
+			String no1="",op,no2="";
 			Integer res=0;
-			while(1)
-			{
-			    if(Pattern.matches("[+-*/^]", queue.element()))
-			    	break;
-			    else {
-					res=res+queue.poll();
-				}
-			}
-			String op=queue.poll();
-			while(1)
-			{
-				String number=queue.poll();
-				if(number.equals("+"))
-					res=res+Integer.parseInt(queue.poll());
-				else if(number.equals("-"))
-					res=res-Integer.parseInt(queue.poll());
-				else if(number.equals("*"))
-					res=res*Integer.parseInt(queue.poll());
-				else if(number.equals("/"))
-					res=res/Integer.parseInt(queue.poll());
-				else 
-				{
-					res=Integer.parseInt(number);
-				}
+			while(!queue.isEmpty())
+			{	
+			    while(true)
+			    {
+			         if(Pattern.matches("[+-*/^]", queue.element()))
+			         {
+			        	 op=queue.poll();
+			    	     break;
+			         }
+			         
+			         else 
+			         {
+					        no1=no1+queue.poll();
+				     }
+			    }
+			   
+			    while(true)
+			    {
+			    	no2+=queue.poll();   	
+			        
+			    }
+			    
+			    if(op.equals("+"))
+				res=(Integer.parseInt(no1)+Integer.parseInt(no2));
+			    
+				if(op.equals("-"))
+					res=Integer.parseInt(no1)-Integer.parseInt(no2);
+				
+			    if(op.equals("*"))
+					res=(Integer.parseInt(no1)*Integer.parseInt(no2));
+			    
+				if(op.equals("/"))
+					res=Integer.parseInt(no1)/Integer.parseInt(no2);
+				
 			}
 			ShowPanel.l1.setText(res.toString());
 			
