@@ -17,15 +17,17 @@ public class ShowPanel extends JPanel
 	ShowPanel()
 	{
 		this.setBackground(new Color(0,0,0));
-		this.setMaximumSize(new Dimension(250, 400));
+		this.setPreferredSize(new Dimension(300,200));
 		this.setLayout(new FlowLayout(FlowLayout.TRAILING));
 		this.setBorder(BorderFactory.createEtchedBorder(EtchedBorder.LOWERED));
 		
-		l1=new JLabel("0");
+		l1=new JLabel("");
 		l1.setForeground(new Color(0,255,0));
-		l1.setMaximumSize(new Dimension(300,150));
+		//l1.setSize(new Dimension(300,150));
 		
 		this.add(l1);
+		
+		this.revalidate();
 	}
 
 }

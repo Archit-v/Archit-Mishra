@@ -12,12 +12,14 @@ public class CalcPanel extends JPanel {
 		
 		
 		ShowPanel show=new ShowPanel();
-		this.add(show);
-		
-		ButtonPanel bp=new ButtonPanel();
-		this.add(bp,BorderLayout.PAGE_END);
+		this.add(show,BorderLayout.PAGE_START);
 		
 		
+		
+		Button bp=new Button();
+		this.add(bp);
+		
+		this.revalidate();
 	}
 
 }

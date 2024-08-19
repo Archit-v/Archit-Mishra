@@ -1,22 +1,14 @@
 package calculator;
-import java.awt.BorderLayout;
-import java.awt.Color;
+
 import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.LinkedList;
-import java.util.PriorityQueue;
-import java.util.Queue;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
-import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 
-
-public class ButtonPanel extends JPanel implements ActionListener{
+public class Button extends JPanel implements ActionListener{
 	
 	/**
 	 * 
@@ -27,6 +19,7 @@ public class ButtonPanel extends JPanel implements ActionListener{
 	public JButton multiply;
 	public JButton divide;
 	public JButton squareRoot;
+	public JButton clear;
 	public JButton equals;
 	public JButton zero;
 	public JButton one;
@@ -39,16 +32,19 @@ public class ButtonPanel extends JPanel implements ActionListener{
 	public JButton eight;
 	public JButton nine;
 	
-	public String ch[];
-	Queue<String> queue;
+	Double no1,no2;
+	Double res=0.0;
+	String op="";
+
 	
-	public ButtonPanel() {
+	public Button() {
 		
 		add=new JButton("+");
 		subtract=new JButton("-");
 		multiply=new JButton("X");
 		divide=new JButton("/");
 		squareRoot=new JButton("Root");
+		clear=new JButton("clr");
 		equals=new JButton("=");
 		zero=new JButton("0");
 		one=new JButton("1");
@@ -60,14 +56,14 @@ public class ButtonPanel extends JPanel implements ActionListener{
 		seven=new JButton("7");
 		eight=new JButton("8");
 		nine=new JButton("0");
-		ch=new String[30];
-		queue=new LinkedList<String>();
+
 		
 		add.addActionListener(this);
 		subtract.addActionListener(this);	
 		multiply.addActionListener(this);
 		divide.addActionListener(this);
 		squareRoot.addActionListener(this);
+		clear.addActionListener(this);
 		equals.addActionListener(this);
 		zero.addActionListener(this);
 		one.addActionListener(this);
@@ -81,15 +77,16 @@ public class ButtonPanel extends JPanel implements ActionListener{
 		nine.addActionListener(this);
 		
 		
-		this.setLayout(new GridLayout(0, 3));
+		this.setLayout(new GridLayout(0, 2));
 		
-		this.setSize(new Dimension(250, 500));
+		this.setPreferredSize(new Dimension(300, 200));
 		
 		this.add(add);
 		this.add(subtract);
 		this.add(multiply);
 		this.add(divide);
 		this.add(squareRoot);
+		this.add(clear);
 		this.add(equals);
 		this.add(one);
 		this.add(two);
@@ -100,112 +97,95 @@ public class ButtonPanel extends JPanel implements ActionListener{
 		this.add(seven);
 		this.add(eight);
 		this.add(nine);
+		this.revalidate();
 	}
 	public void actionPerformed(ActionEvent e)
 	{
 		
-		int flagEquals=0;
+		
 		
 		if(e.getSource().equals(add))
 		{
-			queue.offer("+");
-		
-			
+			no1=Double.parseDouble(ShowPanel.l1.getText());
+		    op= "+";
+		    ShowPanel.l1.setText("");			
 		}
 		
 		else if(e.getSource().equals(subtract))
 		{
-			queue.offer("-");
+			no1=Double.parseDouble(ShowPanel.l1.getText());
+		    op= "-";
+		    ShowPanel.l1.setText("");
 		    
 		}
 		
 		else if(e.getSource().equals(multiply))
 		{
-			queue.offer("*");
+			no1=Double.parseDouble(ShowPanel.l1.getText());
+		    op= "*";
+		    ShowPanel.l1.setText("");
 			
 		}
 		
 		else if(e.getSource().equals(divide))
 		{
-			queue.offer("/");
-		
+			no1=Double.parseDouble(ShowPanel.l1.getText());
+		    op= "/";
+		    ShowPanel.l1.setText("");
 		}
 		
 		else if(e.getSource().equals(one))
 		{
-			queue.offer("1");
+			ShowPanel.l1.setText(ShowPanel.l1.getText()+String.valueOf(1));
 			
 		}
 		
 		else if(e.getSource().equals(two))
 		{
-			queue.offer("2");
+			ShowPanel.l1.setText(ShowPanel.l1.getText()+String.valueOf(2));
 			
 		}
 		
 		else if(e.getSource().equals(three))
 		{
-			queue.offer("3");
+			ShowPanel.l1.setText(ShowPanel.l1.getText()+String.valueOf(3));
 			
 		}
 		
 		else if(e.getSource().equals(four))
 		{
-			queue.offer("4");
 			
+			ShowPanel.l1.setText(ShowPanel.l1.getText()+String.valueOf(4));
+		}
+		
+		else if(e.getSource().equals(clear))
+		{
+			ShowPanel.l1.setText("");
 		}
 		
 		else if(e.getSource().equals(equals))
 		{
 			
-			String no1="",op,no2="";
-			Integer res=0;
-			while(!queue.isEmpty())
-			{	
-			    while(true)
-			    {
-			         if(Pattern.matches("[+-*/^]", queue.element()))
-			         {
-			        	 op=queue.poll();
-			    	     break;
-			         }
-			         
-			         else 
-			         {
-					        no1=no1+queue.poll();
-				     }
-			    }
-			   
-			    while(true)
-			    {
-			    	no2+=queue.poll();   	
-			        
-			    }
-			    
-			    if(op.equals("+"))
-				res=(Integer.parseInt(no1)+Integer.parseInt(no2));
-			    
-				if(op.equals("-"))
-					res=Integer.parseInt(no1)-Integer.parseInt(no2);
-				
-			    if(op.equals("*"))
-					res=(Integer.parseInt(no1)*Integer.parseInt(no2));
-			    
-				if(op.equals("/"))
-					res=Integer.parseInt(no1)/Integer.parseInt(no2);
-				
-			}
-			ShowPanel.l1.setText(res.toString());
-			
-		}
-		if(flagEquals==0)
-		{	
-		     String totalCh="";
-		     for(String s:queue)
-		     {
-			      totalCh=totalCh+s;
-		     }
-		     ShowPanel.l1.setText(totalCh);
+			no2=Double.parseDouble(ShowPanel.l1.getText());
+		
+		    switch(op)
+		    {
+		         case "+": res=no1+no2;
+		                   break;
+		                   
+		         case "-": res=no1-no2;
+                           break;
+                 
+		         case "*": res=no1*no2;
+                           break;
+                 
+		         case "/": res=no1/no2;
+                           break;
+		    }
+		    ShowPanel.l1.setText(Double.toString(res));
+		    no1=res;
 		}
 	}
 }
+
+
