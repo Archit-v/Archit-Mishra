@@ -10,9 +10,8 @@ import javax.swing.JPanel;
 
 public class Button extends JPanel implements ActionListener{
 	
-	/**
-	 * 
-	 */
+	
+	
 	
 	public JButton add;
 	public JButton subtract;
@@ -21,6 +20,9 @@ public class Button extends JPanel implements ActionListener{
 	public JButton squareRoot;
 	public JButton clear;
 	public JButton equals;
+	public JButton dot;
+	
+	
 	public JButton zero;
 	public JButton one;
 	public JButton two;
@@ -46,6 +48,10 @@ public class Button extends JPanel implements ActionListener{
 		squareRoot=new JButton("Root");
 		clear=new JButton("clr");
 		equals=new JButton("=");
+		
+		
+		
+		dot=new JButton(".");
 		zero=new JButton("0");
 		one=new JButton("1");
 		two=new JButton("2");
@@ -55,9 +61,10 @@ public class Button extends JPanel implements ActionListener{
 		six=new JButton("6");
 		seven=new JButton("7");
 		eight=new JButton("8");
-		nine=new JButton("0");
+		nine=new JButton("9");
 
 		
+		//registering action listener for functional buttons
 		add.addActionListener(this);
 		subtract.addActionListener(this);	
 		multiply.addActionListener(this);
@@ -65,6 +72,10 @@ public class Button extends JPanel implements ActionListener{
 		squareRoot.addActionListener(this);
 		clear.addActionListener(this);
 		equals.addActionListener(this);
+		
+		
+		//registering action listener for non-functional buttons
+		dot.addActionListener(this);
 		zero.addActionListener(this);
 		one.addActionListener(this);
 		two.addActionListener(this);
@@ -76,11 +87,13 @@ public class Button extends JPanel implements ActionListener{
 		eight.addActionListener(this);
 		nine.addActionListener(this);
 		
-		
-		this.setLayout(new GridLayout(0, 2));
-		
+		//setting font manager for this panel
+		//also setting its size
+		this.setLayout(new GridLayout(0, 3));
 		this.setPreferredSize(new Dimension(300, 200));
 		
+		
+		// Adding functional buttons to this panel
 		this.add(add);
 		this.add(subtract);
 		this.add(multiply);
@@ -88,6 +101,11 @@ public class Button extends JPanel implements ActionListener{
 		this.add(squareRoot);
 		this.add(clear);
 		this.add(equals);
+		
+		
+		//Adding non functional buttons to this panel
+		this.add(dot);
+		this.add(zero);
 		this.add(one);
 		this.add(two);
 		this.add(three);
@@ -97,7 +115,7 @@ public class Button extends JPanel implements ActionListener{
 		this.add(seven);
 		this.add(eight);
 		this.add(nine);
-		this.revalidate();
+	//	this.revalidate();
 	}
 	public void actionPerformed(ActionEvent e)
 	{
@@ -134,6 +152,29 @@ public class Button extends JPanel implements ActionListener{
 		    ShowPanel.l1.setText("");
 		}
 		
+		else if(e.getSource().equals(squareRoot))
+		{
+			no1=Double.parseDouble(ShowPanel.l1.getText());
+		    Double ans= Math.sqrt(no1); 
+		    ShowPanel.l1.setText(Double.toString(ans));
+		}
+		
+		
+		else if(e.getSource().equals(dot))
+		{
+			if(!(ShowPanel.l1.getText().indexOf('.')>=0))
+			ShowPanel.l1.setText(ShowPanel.l1.getText()+".");
+			
+		}
+		
+		
+		else if(e.getSource().equals(zero))
+		{
+			ShowPanel.l1.setText(ShowPanel.l1.getText()+String.valueOf(0));
+			
+		}
+		
+		
 		else if(e.getSource().equals(one))
 		{
 			ShowPanel.l1.setText(ShowPanel.l1.getText()+String.valueOf(1));
@@ -156,6 +197,36 @@ public class Button extends JPanel implements ActionListener{
 		{
 			
 			ShowPanel.l1.setText(ShowPanel.l1.getText()+String.valueOf(4));
+		}
+		
+		else if(e.getSource().equals(five))
+		{
+			ShowPanel.l1.setText(ShowPanel.l1.getText()+String.valueOf(5));
+			
+		}
+		
+		else if(e.getSource().equals(six))
+		{
+			ShowPanel.l1.setText(ShowPanel.l1.getText()+String.valueOf(6));
+			
+		}
+		
+		else if(e.getSource().equals(seven))
+		{
+			ShowPanel.l1.setText(ShowPanel.l1.getText()+String.valueOf(7));
+			
+		}
+		
+		else if(e.getSource().equals(eight))
+		{
+			ShowPanel.l1.setText(ShowPanel.l1.getText()+String.valueOf(8));
+			
+		}
+		
+		else if(e.getSource().equals(nine))
+		{
+			ShowPanel.l1.setText(ShowPanel.l1.getText()+String.valueOf(9));
+			
 		}
 		
 		else if(e.getSource().equals(clear))
@@ -181,6 +252,7 @@ public class Button extends JPanel implements ActionListener{
                  
 		         case "/": res=no1/no2;
                            break;
+                                    
 		    }
 		    ShowPanel.l1.setText(Double.toString(res));
 		    no1=res;

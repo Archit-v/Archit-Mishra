@@ -3,6 +3,7 @@ package calculator;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
+import java.awt.Font;
 
 import javax.swing.BorderFactory;
 import javax.swing.DefaultBoundedRangeModel;
@@ -23,7 +24,8 @@ public class ShowPanel extends JPanel
 		
 		l1=new JLabel("");
 		l1.setForeground(new Color(0,255,0));
-		//l1.setSize(new Dimension(300,150));
+		l1.setFont(new Font("",Font.ROMAN_BASELINE,28));
+		
 		
 		this.add(l1);
 		
